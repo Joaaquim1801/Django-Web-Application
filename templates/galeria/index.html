@@ -1,6 +1,7 @@
-{% extends 'galeria/base.html' %}
-{% load static %}
-{% block content %}
+{% extends 'galeria/base.html' %} <!-- Conecta esse html ao central (base.html) -->
+{% load static %} <!-- Carrega o CSS -->
+{% block content %} <!-- Cria um bloco para ser executado dentro do base.html
+ -->
             <section class="conteudo">
                 <section class="banner">
                     <img class="banner__imagem" src="{% static '/assets/imagens/Banner(2).png' %}" alt="banner Alura Space">
@@ -19,16 +20,17 @@
                     <div class="cards">
                         <h2 class="cards__titulo">Navegue pela galeria</h2>
                         <ul class="cards__lista">
-                            {% for foto_id, info in cards.items %}
+                            {% if cards %} <!-- Isso vai garantir que ele passe do if apenas se ele for True, ou seja, tiver algo dentro do banco de dados -->
+                            {% for fotografia in cards %} <!-- Pensando no DRY para não ter código repetido é interessante usar um for -->
                             <li class="card">
-                                <a href="{% url 'imagem' %}">
-                                    <img class="card__imagem" src="{% static '/assets/imagens/galeria/carina-nebula.png' %}" alt="foto">
+                                <a href="{% url 'imagem' fotografia.id %}">
+                                    <img class="card__imagem" src="{% static '/assets/imagens/galeria/' %}{{ fotografia.foto }}" alt="foto">
                                 </a>
                                 <span class="card__tag">Estrelas</span>
                                 <div class="card__info">
-                                    <p class="card__titulo">{{ info.nome }}</p>
+                                    <p class="card__titulo">{{ fotografia.nome }}</p>
                                     <div class="card__texto">
-                                        <p class="card__descricao">{{ info.legenda }}</p>
+                                        <p class="card__descricao">{{ fotografia.legenda }}</p>
                                         <span>
                                             <img src="{% static '/assets/ícones/1x/favorite_outline.png' %}" alt="ícone de coração">
                                         </span>
@@ -36,6 +38,8 @@
                                 </div>
                             </li>
                             {% endfor %}
+                            {% else %}
+                            {% endif %}
                         </ul>
                     </div>
                 </section>

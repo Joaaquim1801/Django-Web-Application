@@ -1,14 +1,11 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, get_object_or_404
+from galeria.models import Fotografias
 
 def index(request):
-    dados = {
-    1:{'nome': 'Crab Nebula',
-    'legenda': 'webbtelescope.org / NASA / James Webb'},
-    2:{'nome': 'Arp 220 Galaxy',
-    'legenda': 'webbtelescope.org / NASA / James Webb'}
-    }
-    return render(request, 'galeria/index.html', {"cards": dados })
+    fotografias = Fotografias.objects.all() # Vai acessar os objetos no banco de dados
+    return render(request, 'galeria/index.html', {"cards": fotografias })
 
-def imagem(request):
-    return render(request, 'galeria/imagem.html')
+def imagem(request, foto_id):
+    fotografia = get_object_or_404(Fotografias, pk= foto_id) #Acessar o objeto no banco de dados ao qual o id faz referência
+    #pk =  "Primary Key"
+    return render(request, 'galeria/imagem.html',{"fotografia": fotografia})
