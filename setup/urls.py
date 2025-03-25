@@ -18,9 +18,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.conf import settings
+from django.conf.urls.static import static
 
 "Esse path vai indicar assim: Para rota X execute essa função"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('galeria.urls')),
-]
+] + static(settings.MEDIA_URL, document_root =settings.MEDIA_ROOT)
+
+#MEDIA_URL = Define a URL base para acessar os arquivos de mídia
+#MEDIA_ROOT = Define o DIRETÓRIO no sistema de arquivos onde os arquivos de mídia são armazenadas
