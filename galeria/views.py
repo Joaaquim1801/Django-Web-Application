@@ -12,3 +12,13 @@ def imagem(request, foto_id):
     fotografia = get_object_or_404(Fotografias, pk= foto_id) #Acessar o objeto no banco de dados ao qual o id faz referência
     #pk =  "Primary Key"
     return render(request, 'galeria/imagem.html',{"fotografia": fotografia})
+
+def buscar(request):
+    fotografias = Fotografias.objects.order_by("data_fotografia").filter(publicado=True)
+
+    if "buscar" in request.GET:
+        nome_a_buscar = request.GET['buscar'] #Ele pega o nome que o usuário digitou
+        if nome_a_buscar:
+            fotografias = Fotografias.objects.filter(nome__contains= nome_a_buscar) #nome__contains verifica se dentro de Fotografias tem um item que no nome dele tem o "nome_a_buscar" como se fosse um for
+
+    return render(request, "galeria/buscar.html", {"cards": fotografias})
