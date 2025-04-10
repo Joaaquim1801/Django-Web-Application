@@ -11,10 +11,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'styles/style.css' %}">
-    {% include 'galeria/partials/_main.html' %} 
 </head>
 
 <body>
+    {% include 'galeria/partials/_main.html' %} 
     {% block content %}{% endblock %} <!-- Aqui é onde fica o bloco de index.html e imagem.html --> 
     {% include 'galeria/partials/_footer.html' %}
 </body>
