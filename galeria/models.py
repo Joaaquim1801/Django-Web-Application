@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.contrib.auth.models import User
 #Aqui é onde fica a parte do banco de dados objeto-relacional
 
 class Fotografias(models.Model):
@@ -18,6 +19,13 @@ class Fotografias(models.Model):
     foto = models.ImageField(upload_to="fotos/%Y/%m/%d", blank=True)
     publicado = models.BooleanField(default=False)
     data_fotografia = models.DateTimeField(default=datetime.now, blank=False)
+    usuario = models.ForeignKey(
+        to=User, #Associar a tabela de usuário do própio django; Acessa a tabela própia do Django de usuários
+        on_delete= models.SET_NULL, #Caso um usuário que criou um um novo item for apagado 
+        null=True,
+        blank=False,
+        related_name="user"
+    )
 
     def __str__(self):
         return self.nome
