@@ -17,7 +17,7 @@ class LoginForms(forms.Form):
         required=True,
         max_length=70,
         widget= forms.PasswordInput(
-            attrs={
+            attrs={ #Atributos
                 "class": "form-control",
                 "placeholder": "Digite sua senha"
             }
@@ -47,7 +47,6 @@ class CadastroForms(forms.Form):
             }
         )
     )
-
     senha1 = forms.CharField(
         label="Senha",
         required=True,
@@ -59,7 +58,6 @@ class CadastroForms(forms.Form):
             }
         )
     )
-
     senha2 = forms.CharField(
         label="Senha",
         required=True,
@@ -71,4 +69,24 @@ class CadastroForms(forms.Form):
             }
         )
     )
+    def clean_nome_cadastro(self):
+        nome = self.cleaned_data.get("nome_cadastro")  #Por que usar self.cleaned_data? Pois se eu usasse apenas self.nome_cadastro a variável poderia estar com dados não validados e
+        #limpos, ou seja, poderia dar um erro depois caso não usasse isso
+        #O .get vai servir para pegar essa chave do dicionário, caso ela não existe retornará None, evitando erros, como o KeyError
+        if nome:
+            nome = nome.strip()
+            if ' ' in nome:
+                raise forms.ValidationError("Não é permitido colocar espaços dentro do campo")
+            else:
+                return nome       
+    def clean_senha2(self): #É importante que nome da função seja: clean_nomedavariavel, esse nomedavariavel tem que ser exatamente o que está dentro da classe
+        senha1 = self.cleaned_data.get("senha1")
+        senha2 = self.cleaned_data.get("senha2")
+
+        if senha1 and senha2:
+            if senha1 != senha2:
+                raise forms.ValidationError("As senhas não são iguais!")
+            else:
+                return senha2
+
     

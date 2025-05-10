@@ -408,3 +408,9 @@ table {
     --bs-alert-bg: #cfe2ff;
     --bs-alert-border-color: #b6d4fe;
 }
+
+.alert-danger {
+    --bs-alert-color: #9c686e;
+    --bs-alert-bg: #f7d7da;
+    --bs-alert-border-color: #f1c0c4;
+}
