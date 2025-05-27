@@ -88,5 +88,7 @@ class CadastroForms(forms.Form):
                 raise forms.ValidationError("As senhas não são iguais!")
             else:
                 return senha2
+            
+    # os erros são automaticamente armazenados no objeto do formulário e podem ser facilmente acessados e exibidos no template
 
     

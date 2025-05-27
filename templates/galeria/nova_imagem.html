@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
             <section class="galeria" style="margin-left: 5em">
-                <form action="{% url 'login' %}" method="POST">
+                <form action="{% url 'nova_imagem' %}" method="POST" enctype="multipart/form-data"> <!-- esse enctype indica o tipo de dado que o arquivo está lidando -->
                     {% csrf_token %} <!-- Sempre tem que vim depois de "form"-->
                     <div class="row">
                         {% for field in forms.visible_fields %}
@@ -13,15 +13,10 @@
                         {% endfor %}
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-success col-12" style="padding: top 5px;" >Logar</button>
+                        <button type="submit" class="btn btn-success col-12" style="padding: top 5px;" >Criar</button>
                     </div>
                 </form>
             </section>
         </main>
     </div>
 {% endblock %}
-
-<!-- <label for="{{ field.id_for_label }}">{{field.label}}</label>: Esta linha cria um rótulo (label) para o campo do formulário.
-  O atributo for é usado para associar o rótulo ao campo de entrada correspondente. 
-  O {{ field.id_for_label }} é uma variável que contém o ID do campo, e {{ field.label }} é o texto que será exibido como rótulo.
-   Isso ajuda os usuários a entenderem o que devem preencher em cada campo.-->

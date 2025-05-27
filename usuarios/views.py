@@ -23,8 +23,8 @@ def login(request):
         )
 
         if usuario is not None:
-            auth.login(request, usuario)
             messages.success(request, "Login feito com sucesso!")
+            auth.login(request, usuario)
             return redirect('index')
         else:
             messages.error(request, "ERRO! Ao efetuar o login")
@@ -60,8 +60,9 @@ def cadastro(request):
 
 def logout(request):
     if not request.user.is_authenticated:
-        messages.error(request, "O usuário precisa fazer login antes de sair")
+        messages.error(request, "ERRO! Faça login para poder sair de sua conta")
         return redirect('login')
-    auth.logout(request)
     messages.success(request, "Logout efetuado com sucesso!")
+    auth.logout(request)
     return redirect('login')
+    
